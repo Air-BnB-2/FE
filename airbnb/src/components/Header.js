@@ -8,25 +8,49 @@
 // grey (r34, g34, b34 - #222222)
 
 import React from 'react';
-import Button from '../styles/Button';
 import styled from 'styled-components';
 import Logo from '../Logo.png';
 
 const StyledNavBar = styled.nav `
     display: flex;
+    align-items: center;
     background-color: #222222;
-    height: 8vh;
-    justify-content: space-evenly;
+    height: 70px;
     padding-top: 5px;
 `;
 const StyledH1 = styled.h1 `
-    color: #FF385C;
+    color: #D80565;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 2%;
 `;
 const StyledLogo = styled.img `
     height: 50px;
     width: 50px;
-    margin-top: 8px;
     display: flex;
+    justify-content: flex-start;
+`;
+
+const NavDiv = styled.nav `
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 75%;
+`;
+const NavLinks = styled.a `
+    color: #FFFFFF;
+    margin: 5px;
+`;
+const Button = styled.button `
+    height: 40px;
+    width: 90px;
+    margin: 5px;
+    border: none;
+    border-radius: 3px;
+    color: #FFFFFF;
+
+    ${props => (props.type === 'primary-red') ? `background: #FF385C` : null}
+    ${props => (props.type === 'secondary-red') ? `background: #D80565` : null}
 `;
 
 function Header () {
@@ -34,8 +58,12 @@ function Header () {
     <StyledNavBar>
       <StyledH1>Airbnb Optimal Pricing &nbsp;</StyledH1>
         <StyledLogo src={Logo} alt="logopng"/>
-        <Button type='primary-red'>Login</Button>
-        <Button type='secondary-red'>Register</Button>
+        <NavDiv>
+            <NavLinks href='#'>Home</NavLinks>
+            <NavLinks href='#'>About</NavLinks>
+            <Button type='secondary-red'>Register</Button>
+            <Button type='primary-red'>Login</Button>
+        </NavDiv>
     </StyledNavBar>
     )
 }
