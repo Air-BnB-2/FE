@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import formSchema from './FormSchema';
+import styled from 'styled-components';
 import * as yup from 'yup';
 import axios from 'axios';
 
@@ -74,12 +75,12 @@ export default function Form() {
         const newFormData = {
             ...formState, 
             [event.target.name]:
-                event.target.type === 'checkbox' ? event.target.checked : event.target.value
+                event.target.type === 'button' ? event.target.submit : event.target.value
         };
         validateChange(event);
         setFormState(newFormData)
     };
-
+    
     return (
         <form onSubmit={formSubmit}>
             <div className='formInputs'>
