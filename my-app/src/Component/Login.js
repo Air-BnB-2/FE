@@ -24,7 +24,7 @@ export const Login = () => {
   const handleSubmit = e => {
     e.preventDefault();
     axiosWithAuth()
-      .post("", this.state.credentials)
+      .post("/auth/login", credentials)
       .then(res => {
         //console.log(res)
         localStorage.setItem("token" /*res.data.payload*/);
