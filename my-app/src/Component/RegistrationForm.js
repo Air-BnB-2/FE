@@ -51,12 +51,13 @@ export default function Form() {
   const formSubmit = event => {
     event.preventDefault();
     axios
-      .post("/auth/register", formState)
+      .post(`/auth/register/${email}`, formState)
       .then(response => {
         setUsers([...users, response.data]);
         console.log("success", response.data);
 
         setFormState(initialFormValues);
+        push(`/register/${email}`);
         // Push to Login form or to Listing or CreateListings form
       })
       .catch(err => {
