@@ -75,10 +75,12 @@ function Login(props) {
 
         setFormState(initialFormValues);
         localStorage.setItem("token", JSON.stringify(response.data));
-        this.props.history.push("");
+        this.props.history.push(" ");
+        //push to Listing or CreateListing page
       })
       .catch(error => {
         console.log(error.response);
+        //or push back to header/Home page
       });
   };
 
