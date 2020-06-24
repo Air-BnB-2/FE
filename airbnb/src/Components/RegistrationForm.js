@@ -1,28 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import Container from './Container';
+import Button from './Button';
+import Link from './Link';
 import formSchema from './FormSchema';
-import styled from 'styled-components';
 import * as yup from 'yup';
 import axios from 'axios';
-
-const initialFormValues = {
-    firstName: '',
-    lastName: '',
-    username: '',
-    email: '',
-    password: ''
-};
+import Wrapper from './FormWrapper';
 
 export default function Form() {
 
-    const [formState, setFormState] = useState(initialFormValues)
-
-    const [errors, setErrors] = useState({
+    const initialFormValues = {
         firstName: '',
         lastName: '',
         username: '',
         email: '',
         password: ''
-    });
+    };
+
+    const [formState, setFormState] = useState(initialFormValues)
+
+    const [errors, setErrors] = useState(initialFormValues)
 
     const [buttonDisabled, setButtonDisabled] = useState(true);
 
@@ -82,30 +79,48 @@ export default function Form() {
     };
     
     return (
-        <form onSubmit={formSubmit}>
-            <div className='formInputs'>
-                <label htmlFor='firstName'>
-                    <input type='text' name='firstName' placeholder='First Name' value={formState.firstName} onChange={inputChange}/>
-                    <p className ='errors'>{errors.firstName}</p>
-                </label>
-                <label htmlFor='lastName'>
-                    <input type='text' name='lastName' placeholder='Last Name' value={formState.lastName} onChange={inputChange}/>
-                    <p className ='errors'>{errors.lastName}</p>
-                </label>
-                <label htmlFor='username'>
-                    <input type='text' name='username' placeholder='Username' value={formState.username} onChange={inputChange}/>
-                    <p className ='errors'>{errors.username}</p>
-                </label>
-                <label htmlFor='email'>
-                    <input type='text' name='email' placeholder='Email' value={formState.email} onChange={inputChange}/>
-                    <p className ='errors'>{errors.email}</p>
-                </label>
-                <label htmlFor='password'>
-                    <input type='text' name='password' placeholder='Password' value={formState.password} onChange={inputChange}/>
-                    <p className ='errors'>{errors.password}</p>
-                </label>
-                <button disabled={buttonDisabled} name='submit'>Submit</button>
-            </div>
-        </form>
+        <Container>
+            <form onSubmit={formSubmit}>
+                <Wrapper>
+                <div className='formHeading'>
+                    <h1>Register</h1>
+                </div>
+                <div className='formInputs'>
+                    <label htmlFor='firstName'>
+                        <input type='text' name='firstName' placeholder='First Name' value={formState.firstName} onChange={inputChange}/>
+                        <p className ='errors'>{errors.firstName}</p>
+                    </label>
+                </div>
+                <div className='formInputs'>
+                    <label htmlFor='lastName'>
+                        <input type='text' name='lastName' placeholder='Last Name' value={formState.lastName} onChange={inputChange}/>
+                        <p className ='errors'>{errors.lastName}</p>
+                    </label>
+                </div>
+                <div className='formInputs'>
+                    <label htmlFor='username'>
+                        <input type='text' name='username' placeholder='Username' value={formState.username} onChange={inputChange}/>
+                        <p className ='errors'>{errors.username}</p>
+                    </label>
+                </div>
+                <div className='formInputs'>
+                    <label htmlFor='email'>
+                        <input type='text' name='email' placeholder='Email' value={formState.email} onChange={inputChange}/>
+                        <p className ='errors'>{errors.email}</p>
+                    </label>
+                </div>
+                <div className='formInputs'>
+                    <label htmlFor='password'>
+                        <input type='password' name='password' placeholder='Password' value={formState.password} onChange={inputChange}/>
+                        <p className ='errors'>{errors.password}</p>
+                    </label>
+                </div>
+                <div className='submitButton'>
+                    <Button disabled={buttonDisabled} name='submit'>Submit</Button>
+                </div>
+                <p>Already have an account?<br/><Link href='#'>Log in here</Link></p>
+                </Wrapper>
+            </form>
+        </Container>
     )
 };
