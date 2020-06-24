@@ -22,15 +22,14 @@ const StyledH1 = styled.h1`
   color: #d80565;
   display: flex;
   justify-content: flex-start;
-  margin-left: 2%;
 `;
 const StyledLogo = styled.img`
   height: 50px;
   width: 50px;
   display: flex;
   justify-content: flex-start;
+  margin-left: 4%;
 `;
-
 const NavDiv = styled.nav`
   display: flex;
   justify-content: flex-end;
@@ -56,8 +55,8 @@ const Button = styled.button`
 function Header() {
   return (
     <StyledNavBar>
-      <StyledH1>Airbnb Optimal Pricing &nbsp;</StyledH1>
       <StyledLogo src={Logo} alt="logopng" />
+      <StyledH1>Airbnb Optimal Pricing &nbsp;</StyledH1>
       <NavDiv>
         <NavLinks href="#">Home</NavLinks>
         <NavLinks href="#">About</NavLinks>

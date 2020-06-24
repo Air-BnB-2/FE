@@ -7,6 +7,7 @@ const StyledForm = styled.form`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  align-items: center;
 `;
 
 const SubmitButton = styled.button`
