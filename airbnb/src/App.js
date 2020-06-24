@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Header from "./Components/Header";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from "./Components/Login";
-import LoginForm from "./Components/LoginForm";
+import LoginFormContainer from "./Components/LoginFormContainer";
 
 const WrapperDiv = styled.div`
   font-family: sans-serif;
@@ -16,9 +16,9 @@ function App() {
       <WrapperDiv>
         <Header />
         <br />
-        <LoginForm>
+        <LoginFormContainer>
           <Login />
-        </LoginForm>
+        </LoginFormContainer>
         {/*<Route></Route>*/}
       </WrapperDiv>
     </Router>
