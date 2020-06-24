@@ -77,7 +77,7 @@ export default function Form() {
         validateChange(event);
         setFormState(newFormData)
     };
-    
+
     return (
         <Container>
             <form onSubmit={formSubmit}>
