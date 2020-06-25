@@ -1,26 +1,27 @@
 import React from "react";
-import axiosWithAuth from "../utils/axiosWithAuth";
+import axios from "axios";
+
+import { Property } from "../Component/Property";
 
 export const Listings = () => {
-    state = {
-        listings: []
-    };
-    componentDidMount() {
-        getData();
-    }
-  const getData = () => {
-    axiosWithAuth()
-      .post("/auth/login", credentials)
-      .then(res => {
-        console.log("from login", res);
-        localStorage.setItem("token" /*res.data.payload*/);
-        credentials.history.push("/protected");
-      })
-      .catch(err => console.log(err));
+  state = {
+    listings: []
   };
-  return(
-      <>
-<p>{this.state.listings}</p>
-      </>
-  )
+  // componentDidMount() {
+  //     getData();
+  // }
+  const getData = () => {
+    axios
+      .get("/:id/listings")
+      .then(res => console.log("from listings"))
+      .catch();
+  };
+  return (
+    <>
+      Listings:
+      <p>{this.state.listings}</p>
+      Property name and price:
+      <Property />
+    </>
+  );
 };

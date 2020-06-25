@@ -24,12 +24,11 @@ export const Login = () => {
 
   const handleSubmit = e => {
     console.log("from");
-    e.preventDefault();
-    axiosWithAuth()
+    e.preventDefault()
       .post("/auth/login", credentials)
       .then(res => {
         console.log("from login", res);
-        localStorage.setItem("token" /*res.data.payload*/);
+        localStorage.setItem("token", res.credentials);
         credentials.history.push("/protected");
       })
       .catch(err => console.log(err));
