@@ -12,7 +12,7 @@ code {
     monospace;
 }
 
-h1, h4, h5, p {
+h1, h4, h5, p, label {
   color: #FFFFFF;
 }
 
@@ -33,5 +33,5 @@ h1, h4, h5, p {
 
 .errors {
   font-size: .8rem;
-  color: #FF0000;
+  color: #D80565;
 }

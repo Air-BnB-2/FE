@@ -9,16 +9,16 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Route path='/register'> */}
-        {/* <FormContainer>
+      <Route path='/register'>
+        <FormContainer>
             <Form/>
-        </FormContainer> */}
-      {/* </Route> */} */}
-      {/* <Route path='/listings'> */}
+        </FormContainer>
+      </Route>
+      <Route path='/listings'>
         <FormContainer>
           <ListingsForm/>
         </FormContainer>
-      {/* </Route> */}
+      </Route>
     </div>
   );
 }

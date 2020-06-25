@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Container from './Container';
 import Button from './Button';
-import Link from './Link';
+import StyledLink from './Link';
 import formSchema from './FormSchema';
+import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 import axios from 'axios';
 import Wrapper from './FormWrapper';
@@ -118,7 +119,7 @@ export default function Form() {
                 <div className='submitButton'>
                     <Button disabled={buttonDisabled} name='submit'>Submit</Button>
                 </div>
-                <p>Already have an account?<br/><Link href='#'>Log in here</Link></p>
+                <p>Already have an account?<br/><StyledLink href='#'>Log in here</StyledLink></p>
                 </Wrapper>
             </form>
         </Container>

@@ -4,7 +4,7 @@ const FormContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000000;
+    background-color: #FFFFFF;
     height: 100%;
 `
 

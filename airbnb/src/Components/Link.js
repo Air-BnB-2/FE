@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-const Link = styled.a`
+const StyledLink = styled.a`
     text-decoration: none;
     color: #FFFFFF;
 `
-export default Link;
+export default StyledLink;
