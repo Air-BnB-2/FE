@@ -23,6 +23,7 @@ const App = () => {
   const [listings] = useState(/*DATA*/);
   return (
     <div className="App">
+      <p>HELLO</p>
       <Context.Provider value={listings}>
         <Router>
           <WrapperDiv>
