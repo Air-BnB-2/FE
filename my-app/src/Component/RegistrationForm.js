@@ -1,97 +1,161 @@
 import React, { useState, useEffect } from "react";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+import Container from "./Container";
+import Button from "./Button";
+import Link from "./Link";
+import formSchema from "./FormSchema";
+import * as yup from "yup";
+import axios from "axios";
+import Wrapper from "./FormWrapper";
 
-export const Register = () => {
-  const [credentials, setCredentials] = useState({
-    firstname: "",
-    lastname: "",
+export default function Form() {
+  const initialFormValues = {
+    firstName: "",
+    lastName: "",
     username: "",
     email: "",
     password: ""
-  });
-  //   state = {
-  //     credential: {
-  //       name: "",
-  //       password: ""
-  //     },
-  //     isLoading: false
-  //   };
-  const handleChange = e => {
-    e.preventDefault();
-    setCredentials({
-      ...credentials,
-      [e.target.name]: e.target.value
-    });
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    axiosWithAuth()
-      .post("/auth/register", credentials)
-      .then(res => {
-        //console.log(res)
-        localStorage.setItem("token" /*res.data.payload*/);
-        //props.history.push();
+  const [formState, setFormState] = useState(initialFormValues);
+
+  const [errors, setErrors] = useState(initialFormValues);
+
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    formSchema.isValid(formState).then(valid => {
+      setButtonDisabled(!valid);
+    });
+  }, [formState]);
+
+  const validateChange = event => {
+    yup
+      .reach(formSchema, event.target.name)
+      .validate(event.target.value)
+      .then(valid => {
+        setErrors({
+          ...errors,
+          [event.target.name]: ""
+        });
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        setErrors({
+          ...errors,
+          [event.target.name]: err.errors
+        });
+      });
+  };
+
+  const formSubmit = event => {
+    event.preventDefault();
+    axios
+      .post("https://reqres.in/api/users", formState)
+      .then(response => {
+        setUsers([...users, response.data]);
+        console.log("success", response.data);
+
+        setFormState(initialFormValues);
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+  };
+
+  const inputChange = event => {
+    event.persist();
+
+    const newFormData = {
+      ...formState,
+      [event.target.name]:
+        event.target.type === "button"
+          ? event.target.submit
+          : event.target.value
+    };
+    validateChange(event);
+    setFormState(newFormData);
   };
 
   return (
-    <>
-      <h2>Or Register</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          First Name:
-          <input
-            name="firstname"
-            type="text"
-            onChange={handleChange}
-            value={credentials.firstname}
-          />
-        </label>
-        <br />
-        <label>
-          Last Name:
-          <input
-            name="lastname"
-            type="text"
-            onChange={handleChange}
-            value={credentials.lastname}
-          />
-        </label>
-        <br />
-        <label>
-          Username:
-          <input
-            name="username"
-            type="text"
-            onChange={handleChange}
-            value={credentials.username}
-          />
-        </label>
-        <br />
-        <label>
-          Email:
-          <input
-            name="email"
-            type="text"
-            onChange={handleChange}
-            value={credentials.email}
-          />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input
-            name="password"
-            type="text"
-            onChange={handleChange}
-            value={credentials.password}
-          />
-        </label>
-        <br />
-        <button>Submit</button>
+    <Container>
+      <form onSubmit={formSubmit}>
+        <Wrapper>
+          <div className="formHeading">
+            <h1>Register</h1>
+          </div>
+          <div className="formInputs">
+            <label htmlFor="firstName">
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={formState.firstName}
+                onChange={inputChange}
+              />
+              <p className="errors">{errors.firstName}</p>
+            </label>
+          </div>
+          <div className="formInputs">
+            <label htmlFor="lastName">
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                value={formState.lastName}
+                onChange={inputChange}
+              />
+              <p className="errors">{errors.lastName}</p>
+            </label>
+          </div>
+          <div className="formInputs">
+            <label htmlFor="username">
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                value={formState.username}
+                onChange={inputChange}
+              />
+              <p className="errors">{errors.username}</p>
+            </label>
+          </div>
+          <div className="formInputs">
+            <label htmlFor="email">
+              <input
+                type="text"
+                name="email"
+                placeholder="Email"
+                value={formState.email}
+                onChange={inputChange}
+              />
+              <p className="errors">{errors.email}</p>
+            </label>
+          </div>
+          <div className="formInputs">
+            <label htmlFor="password">
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={formState.password}
+                onChange={inputChange}
+              />
+              <p className="errors">{errors.password}</p>
+            </label>
+          </div>
+          <div className="submitButton">
+            <Button disabled={buttonDisabled} name="submit">
+              Submit
+            </Button>
+          </div>
+          <p>
+            Already have an account?
+            <br />
+            <Link href="#">Log in here</Link>
+          </p>
+        </Wrapper>
       </form>
-    </>
+    </Container>
   );
-};
+}
