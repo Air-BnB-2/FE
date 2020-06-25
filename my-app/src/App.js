@@ -1,52 +1,44 @@
-import React, { Provider } from "react";
+import React, { useState, Provider } from "react";
 import "./App.css";
-import Form from "./Component/RegistrationForm";
-import FormContainer from "./Component/FormContainer";
 
-import Header from "./Component/Header";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Login from "./Component/Login";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import PrivateRouter from "./Component/PrivateRoute";
+import Listings from "./Component/Listings";
 
-import { Context } from "./context.js/Context";
-
-const WrapperDiv = styled.div`
-  font-family: sans-serif;
-  text-align: center;
-`;
-
-//import { Login } from "./Component/Login"; wayne
-//import { Register } from "./Component/Register"; wayne
-
-//import { Context } from "./context.js/Context"; wayne
+import { Login } from "./Component/Login";
+import { Register } from "./Component/RegistrationForm";
+import PrivateRoute from "./Component/PrivateRoute";
+//import { Context } from "./context.js/Context";
 
 const App = () => {
   const [listings] = useState(/*DATA*/);
   return (
-    <div className="App">
-      <p>HELLO</p>
-      <Context.Provider value={listings}>
-        <Router>
-          <WrapperDiv>
-            <Header />
-            <br />
-            <Login />
-            {/*<Route></Route*/}
-          </WrapperDiv>
-        </Router>
+    <Router>
+      <div className="App">
+        <ul>
+          <li>
+            <Link to="/">Login</Link>
+          </li>
+          <li>
+            <Link to="/protected">Protected Page</Link>
+          </li>
+        </ul>
 
-        <FormContainer>
-          <Form />
-        </FormContainer>
-      </Context.Provider>
-      {/* <Context.Provider value={listings}> wayne
+        <Route exact path="/" component={Login} />
+        <PrivateRoute exact path="/protected" component={Listings} />
+        <Route exact path="/register" component={Register} />
+
+        {/* <Context.Provider value={listings}>
         <Route exact path="/">
           <Login />
         </Route>
         <Route exact path="/register">
           <Register />
+          //
         </Route>
       </Context.Provider> */}
-    </div>
+      </div>
+    </Router>
   );
 };
 

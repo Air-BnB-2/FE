@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 export const Login = () => {
@@ -13,6 +13,7 @@ export const Login = () => {
   //     },
   //     isLoading: false
   //   };
+
   const handleChange = e => {
     e.preventDefault();
     setCredentials({
@@ -22,13 +23,14 @@ export const Login = () => {
   };
 
   const handleSubmit = e => {
+    console.log("from");
     e.preventDefault();
     axiosWithAuth()
       .post("/auth/login", credentials)
       .then(res => {
-        //console.log(res)
+        console.log("from login", res);
         localStorage.setItem("token" /*res.data.payload*/);
-        //props.history.push();
+        credentials.history.push("/protected");
       })
       .catch(err => console.log(err));
   };
@@ -45,6 +47,7 @@ export const Login = () => {
             value={credentials.name}
           />
         </label>
+        <br />
         <label>
           <input
             name="password"
@@ -53,7 +56,7 @@ export const Login = () => {
             value={credentials.password}
           />
         </label>
-        <button>Submit</button>
+        <button>Login</button>
       </form>
     </>
   );
