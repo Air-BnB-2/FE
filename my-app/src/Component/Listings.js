@@ -1,16 +1,57 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 
-export const Listings = props => {
+import { Context } from "../context.js/Context";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+
+export const Listings = () => {
+  const { id } = useContext(Context);
+  const [listings, setListings] = useState([]);
+
+  // const [key, setKey] = useState({
+  //   property_type: "",
+  //   amenities: "",
+  //   room_type: "",
+  //   accommodates: "",
+  //   bathrooms: "",
+  //   cancellation_policy: "",
+  //   cleaning_fee: "",
+  //   instant_bookable: "",
+  //   zipcode: "",
+  //   bedrooms: "",
+  //   beds: ""
+  // });
+
+  useEffect(() => {
+    if (id) {
+      getData();
+    }
+  }, [id]);
+
+  function getData() {
+    axiosWithAuth()
+      .get(`/${id}/listings`)
+      .then(res => setListings(res.data))
+      .catch(err => console.log("err", err));
+  }
+
+  function onDelete(listingId) {
+    axiosWithAuth()
+      .delete(`/${id}/listings/${listingId}`)
+      .then(() => {
+        getData();
+      })
+      .catch();
+  }
+
   return (
     <>
-      <h1>Listings</h1>
-      <p>{props.name}</p>
-      <p>{props.propertyType}</p>
-      <p>{props.price}</p>
-      <p>{props.minNightStay}</p>
-      <p>{props.cleaningFee}</p>
-      <p>{props.numberOfGuests}</p>
-      <p>{props.amenities}</p>
+      {listings.map(listing => (
+        <div>
+          <p>{listing.property_name}</p>
+          <p>{listing.price}</p>
+          <button onClick={() => onDelete(listing.id)}>Delete</button>
+        </div>
+      ))}
     </>
   );
 };
