@@ -7,6 +7,20 @@ export const Listings = () => {
   const { id } = useContext(Context);
   const [listings, setListings] = useState([]);
 
+  // const [key, setKey] = useState({
+  //   property_type: "",
+  //   amenities: "",
+  //   room_type: "",
+  //   accommodates: "",
+  //   bathrooms: "",
+  //   cancellation_policy: "",
+  //   cleaning_fee: "",
+  //   instant_bookable: "",
+  //   zipcode: "",
+  //   bedrooms: "",
+  //   beds: ""
+  // });
+
   useEffect(() => {
     getData();
   }, []);
