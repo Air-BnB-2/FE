@@ -7,9 +7,9 @@ export const ListingsForm = () => {
     amenities: "",
     room_type: "",
     accommodates: "",
-    bathrooms: "",
+    bathrooms: "4",
     cancellation_policy: "",
-    cleaning_fee: "",
+    cleaning_fee: "$100",
     instant_bookable: "",
     zipcode: "",
     bedrooms: "",
@@ -28,16 +28,16 @@ export const ListingsForm = () => {
     axiosWithAuth()
       .post(`/${id}/listings`, id)
       .then(res => {
-        console.log(res);
+        console.log("from post", res);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log("post error", err));
   };
 
   function add(listingId) {
     axiosWithAuth()
       .put(`/${id}/listings/${listingId}`, id)
       .then(res => console.log("add res", res))
-      .catch(err => console.log(err));
+      .catch(err => console.log("error", err));
   }
 
   return (
@@ -153,6 +153,7 @@ export const ListingsForm = () => {
           />
         </lable>
         <button type="submit">SUBMIT</button>
+        <button onClick={() => add(id)}>ADD</button>
       </form>
     </>
   );
