@@ -22,8 +22,10 @@ export const Listings = () => {
   // });
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (id) {
+      getData();
+    }
+  }, [id]);
 
   function getData() {
     axiosWithAuth()
