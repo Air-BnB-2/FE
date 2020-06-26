@@ -10,7 +10,7 @@ export const ListingsForm = () => {
     property_type: 0,
     amenities: 0,
     room_type: 0,
-    accommodates: 0,
+    accomodates: 0,
     bathrooms: 0,
     cancellation_policy: 0,
     cleaning_fee: 0,
@@ -95,8 +95,8 @@ export const ListingsForm = () => {
           Accommodates:
           <input
             type="text"
-            name="accommodates"
-            value={listValues.accommodates}
+            name="accomodates"
+            value={listValues.accomodates}
             onChange={changeHandler}
           />
         </lable>
