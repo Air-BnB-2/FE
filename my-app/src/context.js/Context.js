@@ -1,3 +1,6 @@
-// import { createContext } from " react";
+import { createContext } from "react";
 
-// export const Context = createContext();
+export const Context = createContext({
+  id: null,
+  setId: () => {}
+});

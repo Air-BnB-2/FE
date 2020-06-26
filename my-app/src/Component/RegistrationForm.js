@@ -4,7 +4,7 @@ import Button from "./Button";
 import Link from "./Link";
 import formSchema from "./FormSchema";
 import * as yup from "yup";
-import axios from "axios";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 import Wrapper from "./FormWrapper";
 
 export default function Form() {
@@ -50,13 +50,13 @@ export default function Form() {
 
   const formSubmit = event => {
     event.preventDefault();
-    axios
-      .post("https://reqres.in/api/users", formState)
-      .then(response => {
-        setUsers([...users, response.data]);
-        console.log("success", response.data);
+    axiosWithAuth()
+      .post("/auth/register", formState)
+      .then(res => {
+        // setUsers([...users, res.data]);
+        console.log("success", res.data);
 
-        setFormState(initialFormValues);
+        // setFormState(initialFormValues);
       })
       .catch(err => {
         console.log(err.response);

@@ -1,27 +1,41 @@
-import React from "react";
-import axios from "axios";
+import React, { useState, useEffect, useContext } from "react";
 
-import { Property } from "../Component/Property";
+import { Context } from "../context.js/Context";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 export const Listings = () => {
-  state = {
-    listings: []
-  };
-  // componentDidMount() {
-  //     getData();
-  // }
-  const getData = () => {
-    axios
-      .get("/:id/listings")
-      .then(res => console.log("from listings"))
+  const { id } = useContext(Context);
+  const [listings, setListings] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  function getData() {
+    axiosWithAuth()
+      .get(`/${id}/listings`)
+      .then(res => setListings(res.data))
+      .catch(err => console.log("err", err));
+  }
+
+  function onDelete(listingId) {
+    axiosWithAuth()
+      .delete(`/${id}/listings/${listingId}`)
+      .then(() => {
+        getData();
+      })
       .catch();
-  };
+  }
+
   return (
     <>
-      Listings:
-      <p>{this.state.listings}</p>
-      Property name and price:
-      <Property />
+      {listings.map(listing => (
+        <div>
+          <p>{listing.property_name}</p>
+          <p>{listing.price}</p>
+          <button onClick={() => onDelete(listing.id)}>Delete</button>
+        </div>
+      ))}
     </>
   );
 };

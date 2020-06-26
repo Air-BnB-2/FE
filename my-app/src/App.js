@@ -1,45 +1,57 @@
 import React, { useState, Provider } from "react";
+import styled from "styled-components";
+import Header from "./Component/Header";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Form from "./Component/RegistrationForm";
+import FormContainer from "./Component/FormContainer";
+import PrivateRoute from "./Component/PrivateRoute";
+
+import ListingsDashboard from "./Component/ListingsDashboard";
+
 import "./App.css";
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import PrivateRouter from "./Component/PrivateRoute";
-import { Listings } from "./Component/Listings";
+import Login from "./Component/Login";
+import LoginFormContainer from "./Component/LoginFormContainer";
 
-import { Login } from "./Component/Login";
-import { Register } from "./Component/RegistrationForm";
-import PrivateRoute from "./Component/PrivateRoute";
-//import { Context } from "./context.js/Context";
+import { Context } from "./context.js/Context";
 
-const App = () => {
-  const [listings] = useState(/*DATA*/);
+const WrapperDiv = styled.div`
+  font-family: sans-serif;
+  text-align: center;
+`;
+
+function App() {
+  const [id, setId] = useState(null);
+  const value = {
+    id,
+    setId
+  };
   return (
-    <Router>
-      <div className="App">
-        <ul>
-          <li>
-            <Link to="/">Login</Link>
-          </li>
-          <li>
-            <Link to="/protected">Protected Page</Link>
-          </li>
-        </ul>
-
-        <Route exact path="/" component={Login} />
-        <PrivateRoute exact path="/protected" component={Listings} />
-        <Route exact path="/register" component={Register} />
-
-        {/* <Context.Provider value={listings}>
-        <Route exact path="/">
-          <Login />
-        </Route>
-        <Route exact path="/register">
-          <Register />
-          //
-        </Route>
-      </Context.Provider> */}
-      </div>
-    </Router>
+    <div className="App">
+      <Context.Provider value={value}>
+        <Router>
+          <Switch>
+            <PrivateRoute path="/protected">
+              <ListingsDashboard />
+            </PrivateRoute>
+            <Route>
+              <WrapperDiv>
+                <Header />
+                <br />
+                <LoginFormContainer>
+                  <Login />
+                </LoginFormContainer>
+                <FormContainer>
+                  <Form />
+                </FormContainer>
+                {/*<Route></Route>*/}
+              </WrapperDiv>
+            </Route>
+          </Switch>
+        </Router>
+      </Context.Provider>
+    </div>
   );
-};
+}
 
 export default App;
