@@ -36,7 +36,7 @@ export const ListingsForm = () => {
   function add(listingId) {
     axiosWithAuth()
       .put(`/${id}/listings/${listingId}`, id)
-      .then(res => console.log(res))
+      .then(res => console.log("add res", res))
       .catch(err => console.log(err));
   }
 
